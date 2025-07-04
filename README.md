@@ -30,6 +30,8 @@ The Universal Blog Platform is a **production-ready SaaS solution** that transfo
 - **📈 Scalable Architecture**: Built to handle millions of users and billions of posts
 
 ---
+![20250704_0852_Universal Blog Platform_simple_compose_01jza6prcafqyswa0v9dah9vxq](https://github.com/user-attachments/assets/ede87481-767d-4cca-b0eb-87db6bad7c36)
+---
 
 ## 🚀 **Key Features**
 
