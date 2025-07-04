@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-07-03T06:27:30.019Z",
+  "gates": {
+    "unitTests": {
+      "status": "FAILED",
+      "error": "Command failed: npm test -- --coverage --watchAll=false --passWithNoTests"
+    },
+    "integrationTests": {
+      "status": "FAILED",
+      "error": "Command failed: npm test -- __tests__/integration --watchAll=false"
+    },
+    "e2eTests": {
+      "status": "FAILED",
+      "error": "Command failed: npm run cypress:run"
+    },
+    "performance": {
+      "status": "FAILED",
+      "score": 0
+    },
+    "accessibility": {
+      "status": "FAILED",
+      "score": 0
+    },
+    "security": {
+      "status": "FAILED",
+      "score": 0
+    },
+    "seo": {
+      "status": "FAILED",
+      "score": 0
+    },
+    "browserCompatibility": {
+      "status": "FAILED",
+      "score": 0
+    },
+    "platformIntegrations": {
+      "status": "PASSED",
+      "score": 100,
+      "platformCount": 15
+    },
+    "aiIntegrations": {
+      "status": "PASSED",
+      "score": 100
+    },
+    "databaseSchema": {
+      "status": "PASSED",
+      "score": 100
+    },
+    "documentation": {
+      "status": "PASSED",
+      "score": 100
+    }
+  },
+  "summary": {
+    "total": 12,
+    "passed": 4,
+    "failed": 8,
+    "skipped": 0
+  }
+}

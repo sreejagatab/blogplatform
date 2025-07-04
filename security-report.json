@@ -1,0 +1,37 @@
+[
+  {
+    "url": "http://localhost:3000",
+    "error": "",
+    "securityHeaders": {},
+    "missing": [],
+    "warnings": []
+  },
+  {
+    "url": "http://localhost:3000/blog",
+    "error": "",
+    "securityHeaders": {},
+    "missing": [],
+    "warnings": []
+  },
+  {
+    "url": "http://localhost:3000/about",
+    "error": "",
+    "securityHeaders": {},
+    "missing": [],
+    "warnings": []
+  },
+  {
+    "url": "http://localhost:3000/contact",
+    "error": "",
+    "securityHeaders": {},
+    "missing": [],
+    "warnings": []
+  },
+  {
+    "url": "http://localhost:3000/auth/signin",
+    "error": "",
+    "securityHeaders": {},
+    "missing": [],
+    "warnings": []
+  }
+]

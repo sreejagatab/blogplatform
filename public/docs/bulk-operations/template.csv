@@ -1,0 +1,3 @@
+title,content,excerpt,status,category,tags,publish_date,platforms,seo_title,seo_description,featured_image
+"Sample Blog Post Title","This is the main content of your blog post. You can include markdown formatting here.","A brief excerpt that summarizes your post","draft","Technology","tech,ai,automation","2024-12-20T10:00:00Z","twitter,linkedin,facebook","SEO Optimized Title","Meta description for search engines","https://example.com/image.jpg"
+"Another Post Example","Content for your second post goes here. Make sure to follow the same format.","Another engaging excerpt","published","Marketing","marketing,social-media","2024-12-21T14:30:00Z","twitter,linkedin","Marketing Tips Title","Learn effective marketing strategies","https://example.com/image2.jpg"

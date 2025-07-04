@@ -1,0 +1,673 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                    String    @id @default(cuid())
+  name                  String?
+  email                 String    @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  String    @default("VIEWER") // ADMIN, EDITOR, VIEWER
+  bio                   String?
+  website               String?
+  location              String?
+  twitter               String?
+  github                String?
+  linkedin              String?
+  twoFactorEnabled      Boolean   @default(false)
+  twoFactorSecret       String?
+  lastLoginAt           DateTime?
+  emailNotifications    Boolean   @default(true)
+  marketingEmails       Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  accounts              Account[]
+  sessions              Session[]
+  posts                 Post[]
+  comments              Comment[]
+  likes                 PostLike[]
+  platformConnections   UserPlatformConnection[]
+  platformIntegrations  PlatformIntegration[]
+  auditLogs             AuditLog[]
+  publishingJobs        PublishingJob[]
+  inboundContent        InboundContent[]
+  platformContentMappings PlatformContentMapping[]
+  feedSubscriptions     FeedSubscription[]
+  crossPostingRules     CrossPostingRule[]
+  contentSyncJobs       ContentSyncJob[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  color       String?
+  image       String?
+  posts       Post[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Tag {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  color       String?
+  posts       PostTag[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("tags")
+}
+
+model Post {
+  id                String     @id @default(cuid())
+  title             String
+  slug              String     @unique
+  content           String
+  excerpt           String?
+  featuredImage     String?
+  status            String @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED, SCHEDULED, PUBLISHED_PARTIAL
+  featured          Boolean @default(false)
+  publishedAt       DateTime?
+  scheduledAt       DateTime?
+  metaTitle         String?
+  metaDescription   String?
+  canonicalUrl      String?
+  readingTime       Int?
+  viewCount         Int        @default(0)
+  likeCount         Int        @default(0)
+  commentCount      Int        @default(0)
+  shareCount        Int        @default(0)
+  seoScore          Float?
+  aiOptimized       Boolean    @default(false)
+  aiSuggestions     String?    // JSON as text
+  authorId          String
+  categoryId        String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  author            User                @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  category          Category?           @relation(fields: [categoryId], references: [id])
+  tags              PostTag[]
+  comments          Comment[]
+  likes             PostLike[]
+  platformPosts     PlatformPost[]
+  postPublications  PostPublication[]
+  scheduledPublications ScheduledPublication[]
+  publicationQueue  PublicationQueue[]
+  analytics         PostAnalytics[]
+  socialShares      SocialShare[]
+  publishingJobs    PublishingJob[]
+
+  @@map("posts")
+}
+
+model PostTag {
+  id     String @id @default(cuid())
+  postId String
+  tagId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
+  @@map("post_tags")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  postId    String
+  authorId  String
+  parentId  String?
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post     Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+
+  @@map("comments")
+}
+
+model PostLike {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@map("post_likes")
+}
+
+model Platform {
+  id                String         @id @default(cuid())
+  name              String         @unique
+  displayName       String
+  description       String?
+  category          String // social, blogging, professional, etc.
+  iconUrl           String?
+  websiteUrl        String?
+  apiEndpoint       String?
+  authType          String // oauth, api_key, basic, etc.
+  rateLimitPerHour  Int?
+  rateLimitPerDay   Int?
+  maxContentLength  Int?
+  supportsImages    Boolean        @default(false)
+  supportsVideo     Boolean        @default(false)
+  supportsHashtags  Boolean        @default(false)
+  supportsMentions  Boolean        @default(false)
+  supportsScheduling Boolean       @default(false)
+  status            String @default("ACTIVE") // ACTIVE, INACTIVE, MAINTENANCE
+  configuration     String?    // JSON as text
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  connections   UserPlatformConnection[]
+  integrations  PlatformIntegration[]
+  posts         PlatformPost[]
+  publicationQueue PublicationQueue[]
+  healthChecks  PlatformHealthCheck[]
+
+  @@map("platforms")
+}
+
+model UserPlatformConnection {
+  id               String    @id @default(cuid())
+  userId           String
+  platformId       String
+  platformUserId   String?
+  platformUsername String?
+  accessToken      String?
+  refreshToken     String?
+  tokenExpiresAt   DateTime?
+  isActive         Boolean   @default(true)
+  lastSyncAt       DateTime?
+  syncErrors       String?   // JSON as text
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, platformId])
+  @@map("user_platform_connections")
+}
+
+model PlatformPost {
+  id                String               @id @default(cuid())
+  postId            String
+  platformId        String
+  platformPostId    String?
+  platformUrl       String?
+  status            String   @default("PENDING") // PENDING, PUBLISHED, FAILED, SCHEDULED
+  scheduledAt       DateTime?
+  publishedAt       DateTime?
+  adaptedContent    String?
+  adaptedTitle      String?
+  hashtags          String?          // Comma-separated hashtags
+  errorMessage      String?
+  retryCount        Int                  @default(0)
+  maxRetries        Int                  @default(3)
+  nextRetryAt       DateTime?
+  metrics           String?              // JSON as text
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, platformId])
+  @@map("platform_posts")
+}
+
+model PostAnalytics {
+  id           String   @id @default(cuid())
+  postId       String
+  date         DateTime
+  views        Int      @default(0)
+  uniqueViews  Int      @default(0)
+  likes        Int      @default(0)
+  shares       Int      @default(0)
+  comments     Int      @default(0)
+  readTime     Float?   // Average read time in seconds
+  bounceRate   Float?   // Percentage
+  source       String?  // organic, social, direct, etc.
+  country      String?
+  device       String?  // mobile, desktop, tablet
+  createdAt    DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, date, source])
+  @@map("post_analytics")
+}
+
+model SocialShare {
+  id         String   @id @default(cuid())
+  postId     String
+  platform   String
+  url        String?
+  sharedBy   String?  // User ID or IP
+  userAgent  String?
+  ipAddress  String?
+  country    String?
+  createdAt  DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@map("social_shares")
+}
+
+model Newsletter {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  firstName   String?
+  lastName    String?
+  source      String?  // blog, homepage, social, etc.
+  isActive    Boolean  @default(true)
+  confirmedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("newsletters")
+}
+
+model PlatformHealthCheck {
+  id           String    @id @default(cuid())
+  platformId   String
+  status       String    // online, offline, degraded
+  responseTime Int?      // in milliseconds
+  errorMessage String?
+  checkedAt    DateTime  @default(now())
+
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@map("platform_health_checks")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String   // created, updated, deleted, etc.
+  resource    String   // post, user, platform, etc.
+  resourceId  String?
+  oldValues   String? // JSON as text
+  newValues   String? // JSON as text
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model SEOKeyword {
+  id         String   @id @default(cuid())
+  keyword    String   @unique
+  difficulty Int?     // 1-100
+  volume     Int?     // Monthly search volume
+  cpc        Float?   // Cost per click
+  trends     String?    // Historical trend data as JSON text
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+
+  @@map("seo_keywords")
+}
+
+model BackupJob {
+  id          String   @id @default(cuid())
+  type        String   // full, incremental, differential
+  status      String   // pending, running, completed, failed
+  filePath    String?
+  fileSize    Int?     // in bytes
+  errorMessage String?
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@map("backup_jobs")
+}
+
+model PlatformIntegration {
+  id              String   @id @default(cuid())
+  platformId      String
+  userId          String
+  name            String   // Custom name for this integration
+  isEnabled       Boolean  @default(true)
+  autoPublish     Boolean  @default(false)
+  defaultHashtags String?  // Comma-separated hashtags
+  contentTemplate String?  // Template for content adaptation
+  publishingRules String?  // Custom rules for this integration as JSON text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  platform            Platform              @relation(fields: [platformId], references: [id], onDelete: Cascade)
+  user                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postPublications    PostPublication[]
+  scheduledPublications ScheduledPublication[]
+
+  @@unique([platformId, userId, name])
+  @@map("platform_integrations")
+}
+
+model PostPublication {
+  id                    String   @id @default(cuid())
+  postId                String
+  platformIntegrationId String
+  status                String @default("PENDING") // PENDING, PUBLISHED, FAILED, SCHEDULED
+  platformPostId        String?  // ID returned by the platform
+  platformUrl           String?  // URL of the published post
+  publishedAt           DateTime?
+  scheduledFor          DateTime?
+  adaptedContent        String?  // Adapted content
+  adaptedTitle          String?
+  hashtags              String?  // Comma-separated hashtags
+  errorMessage          String?
+  retryCount            Int      @default(0)
+  maxRetries            Int      @default(3)
+  nextRetryAt           DateTime?
+  metrics               String?  // Platform-specific metrics as JSON text
+  metadata              String?  // Additional platform-specific data as JSON text
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  post                Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
+  platformIntegration PlatformIntegration @relation(fields: [platformIntegrationId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, platformIntegrationId])
+  @@map("post_publications")
+}
+
+model ScheduledPublication {
+  id                    String   @id @default(cuid())
+  postId                String
+  platformIntegrationId String
+  scheduledFor          DateTime
+  status                String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED
+  jobId                 String?  // Background job ID
+  publishedAt           DateTime?
+  errorMessage          String?
+  retryCount            Int      @default(0)
+  maxRetries            Int      @default(3)
+  nextRetryAt           DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  post                Post                @relation(fields: [postId], references: [id], onDelete: Cascade)
+  platformIntegration PlatformIntegration @relation(fields: [platformIntegrationId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, platformIntegrationId, scheduledFor])
+  @@map("scheduled_publications")
+}
+
+model PublicationQueue {
+  id          String   @id @default(cuid())
+  postId      String
+  platformId  String
+  priority    Int      @default(0) // Higher number = higher priority
+  scheduledFor DateTime
+  payload     String   // Publication data as JSON text
+  status      String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  attempts    Int      @default(0)
+  maxAttempts Int      @default(3)
+  lastError   String?
+  processedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  platform Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  @@map("publication_queue")
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  company   String?
+  subject   String
+  message   String
+  status    String   @default("NEW") // NEW, IN_PROGRESS, RESOLVED, CLOSED
+  source    String   @default("website") // website, email, phone, etc.
+  priority  String   @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
+  assignedTo String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contacts")
+}
+
+model PublishingJob {
+  id          String   @id @default(cuid())
+  userId      String
+  postId      String?
+  type        String   // SINGLE_POST, BULK_PUBLISH, SCHEDULED_BATCH
+  status      String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED
+  totalItems  Int      @default(1)
+  processedItems Int   @default(0)
+  failedItems Int      @default(0)
+  platforms   String?  // JSON array of platform IDs
+  scheduledFor DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  errorMessage String?
+  progress    Float    @default(0.0) // 0.0 to 100.0
+  metadata    String?  // Additional job data as JSON
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post? @relation(fields: [postId], references: [id], onDelete: SetNull)
+
+  @@map("publishing_jobs")
+}
+
+// Bidirectional Integration Models
+
+model InboundContent {
+  id                String   @id @default(cuid())
+  userId            String
+  platform          String
+  platformPostId    String
+  platformUserId    String
+  originalContent   Json
+  normalizedContent Json
+  ingestionMethod   String   // webhook, rss, api_poll, import
+  status            String   // pending, processed, published, failed
+  title             String?
+  content           String?
+  excerpt           String?
+  extractedTags     String[]
+  extractedTopics   String[]
+  sentiment         String?
+  language          String   @default("en")
+  wordCount         Int?
+  readingTime       Int?
+  publishedAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  crossPosts        CrossPost[]
+
+  @@unique([platform, platformPostId])
+  @@index([userId, platform])
+  @@index([status])
+  @@index([createdAt])
+  @@map("inbound_content")
+}
+
+model PlatformContentMapping {
+  id             String   @id @default(cuid())
+  userId         String
+  platform       String
+  platformUserId String
+  platformUsername String?
+  syncEnabled    Boolean  @default(true)
+  lastSyncAt     DateTime?
+  syncSettings   Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, platform, platformUserId])
+  @@index([userId, platform])
+  @@map("platform_content_mappings")
+}
+
+model FeedSubscription {
+  id              String   @id @default(cuid())
+  userId          String
+  feedUrl         String
+  feedTitle       String?
+  feedDescription String?
+  isActive        Boolean  @default(true)
+  lastProcessedAt DateTime?
+  lastError       String?
+  syncFrequency   Int      @default(60) // minutes
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, feedUrl])
+  @@index([isActive, lastProcessedAt])
+  @@map("feed_subscriptions")
+}
+
+model CrossPostingRule {
+  id              String   @id @default(cuid())
+  userId          String
+  name            String
+  enabled         Boolean  @default(true)
+  sourcePlatforms String[] // platforms to monitor for content
+  targetPlatforms String[] // platforms to cross-post to
+  contentFilters  Json?    // filters for content matching
+  transformRules  Json?    // content transformation rules
+  schedule        Json?    // scheduling preferences
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, enabled])
+  @@map("cross_posting_rules")
+}
+
+model CrossPost {
+  id                String   @id @default(cuid())
+  inboundContentId  String
+  targetPlatform    String
+  status            String   // pending, processing, published, failed
+  platformPostId    String?
+  platformUrl       String?
+  error             String?
+  publishedAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  inboundContent    InboundContent @relation(fields: [inboundContentId], references: [id], onDelete: Cascade)
+
+  @@index([inboundContentId])
+  @@index([status])
+  @@map("cross_posts")
+}
+
+model WebhookLog {
+  id          String   @id @default(cuid())
+  platform    String
+  event       String
+  payload     Json
+  success     Boolean
+  error       String?
+  contentId   String?
+  processedAt DateTime @default(now())
+
+  @@index([platform, processedAt])
+  @@index([success])
+  @@map("webhook_logs")
+}
+
+model ContentSyncJob {
+  id          String   @id @default(cuid())
+  userId      String
+  platform    String
+  jobType     String   // full_sync, incremental_sync, single_post
+  status      String   // pending, processing, completed, failed
+  progress    Json?    // sync progress information
+  result      Json?    // sync results
+  error       String?
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, platform])
+  @@index([status])
+  @@map("content_sync_jobs")
+}

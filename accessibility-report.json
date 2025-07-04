@@ -1,0 +1,37 @@
+[
+  {
+    "url": "http://localhost:3000",
+    "error": "Command failed: npx axe-core http://localhost:3000 --tags wcag2a,wcag2aa,wcag21aa --reporter json\nnpm error could not determine executable to run\nnpm error A complete log of this run can be found in: C:\\Users\\sreen\\AppData\\Local\\npm-cache\\_logs\\2025-07-03T06_28_34_724Z-debug-0.log\n",
+    "violations": -1,
+    "passes": 0,
+    "incomplete": 0
+  },
+  {
+    "url": "http://localhost:3000/blog",
+    "error": "Command failed: npx axe-core http://localhost:3000/blog --tags wcag2a,wcag2aa,wcag21aa --reporter json\nnpm error could not determine executable to run\nnpm error A complete log of this run can be found in: C:\\Users\\sreen\\AppData\\Local\\npm-cache\\_logs\\2025-07-03T06_28_39_303Z-debug-0.log\n",
+    "violations": -1,
+    "passes": 0,
+    "incomplete": 0
+  },
+  {
+    "url": "http://localhost:3000/about",
+    "error": "Command failed: npx axe-core http://localhost:3000/about --tags wcag2a,wcag2aa,wcag21aa --reporter json\nnpm error could not determine executable to run\nnpm error A complete log of this run can be found in: C:\\Users\\sreen\\AppData\\Local\\npm-cache\\_logs\\2025-07-03T06_28_43_153Z-debug-0.log\n",
+    "violations": -1,
+    "passes": 0,
+    "incomplete": 0
+  },
+  {
+    "url": "http://localhost:3000/contact",
+    "error": "Command failed: npx axe-core http://localhost:3000/contact --tags wcag2a,wcag2aa,wcag21aa --reporter json\nnpm error could not determine executable to run\nnpm error A complete log of this run can be found in: C:\\Users\\sreen\\AppData\\Local\\npm-cache\\_logs\\2025-07-03T06_28_47_437Z-debug-0.log\n",
+    "violations": -1,
+    "passes": 0,
+    "incomplete": 0
+  },
+  {
+    "url": "http://localhost:3000/auth/signin",
+    "error": "Command failed: npx axe-core http://localhost:3000/auth/signin --tags wcag2a,wcag2aa,wcag21aa --reporter json\nnpm error could not determine executable to run\nnpm error A complete log of this run can be found in: C:\\Users\\sreen\\AppData\\Local\\npm-cache\\_logs\\2025-07-03T06_28_51_014Z-debug-0.log\n",
+    "violations": -1,
+    "passes": 0,
+    "incomplete": 0
+  }
+]

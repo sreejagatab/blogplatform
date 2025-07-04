@@ -1,0 +1,410 @@
+[
+  {
+    "browser": "Chrome Desktop",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Firefox Desktop",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Desktop",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Edge Desktop",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Mobile",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Mobile",
+    "url": "http://localhost:3000",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Desktop",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Firefox Desktop",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Desktop",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Edge Desktop",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Mobile",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Mobile",
+    "url": "http://localhost:3000/blog",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/blog"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Desktop",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Firefox Desktop",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Desktop",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Edge Desktop",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Mobile",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Mobile",
+    "url": "http://localhost:3000/about",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/about"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Desktop",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Firefox Desktop",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Desktop",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Edge Desktop",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Chrome Mobile",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  },
+  {
+    "browser": "Safari Mobile",
+    "url": "http://localhost:3000/contact",
+    "success": false,
+    "loadTime": 0,
+    "errors": [
+      "Browser test failed: net::ERR_CONNECTION_REFUSED at http://localhost:3000/contact"
+    ],
+    "warnings": [],
+    "features": {
+      "javascript": false,
+      "css": false,
+      "images": false,
+      "forms": false,
+      "navigation": false
+    }
+  }
+]
